@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.sergio.desafio.procer.entity.Pessoa;
-import br.com.sergio.desafio.procer.repository.PessoaRepository;
+import br.com.sergio.desafio.procer.facade.PessoaFacade;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -17,16 +17,16 @@ import reactor.core.publisher.Mono;
 public class PessoaController {
 
     @Autowired
-    private PessoaRepository pessoaRepository;
+    private PessoaFacade pessoaFacade;
 	
     @RequestMapping(value = "/pessoa", method = RequestMethod.GET)
     public Flux<Pessoa> Get() {
-        return pessoaRepository.findAll();
+        return pessoaFacade.findAll();
     }
     
     @RequestMapping(value = "/pessoa", method =  RequestMethod.POST)
     public Mono<Pessoa> Post(@RequestBody Pessoa pessoa){
-        return pessoaRepository.save(pessoa);
+        return pessoaFacade.save(pessoa);
     }
     
 	
