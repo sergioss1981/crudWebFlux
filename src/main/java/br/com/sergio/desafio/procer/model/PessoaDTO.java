@@ -1,38 +1,13 @@
-package br.com.sergio.desafio.procer.entity;
+package br.com.sergio.desafio.procer.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Column;
-import org.springframework.data.relational.core.mapping.Table;
+public class PessoaDTO {
 
-@Table
-public class Pessoa {
-	
-	@Id
-	private Long id;
-
-	@Column
 	private String nome;
-	
-	@Column
 	private String sobrenome;
-	
-	@Column
 	private String email;
-	
-	@Column
 	private String cpf;
-	
-	@Column
 	private Boolean ativo;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
+	
 	public String getNome() {
 		return nome;
 	}
@@ -73,5 +48,4 @@ public class Pessoa {
 		this.ativo = ativo;
 	}
 
-	
 }

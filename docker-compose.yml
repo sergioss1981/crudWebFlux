@@ -7,9 +7,10 @@ services:
       - '5432:5432'
     environment:
       - POSTGRES_USER=root
-      - POSTGRES_DB=root
+      - POSTGRES_DB=procer
       - POSTGRES_PASSWORD=root
-  
+    volumes: 
+          - ./src/main/resources/scripts/create_table_pessoa.sql:/docker-entrypoint-initdb.d/create_table_pessoa.sql     
   desafio:
     build:
       context: .

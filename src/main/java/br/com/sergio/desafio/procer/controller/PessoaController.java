@@ -1,13 +1,35 @@
 package br.com.sergio.desafio.procer.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-@RequestMapping(value = "/pessoa")
-public class PessoaResource {
+import br.com.sergio.desafio.procer.entity.Pessoa;
+import br.com.sergio.desafio.procer.repository.PessoaRepository;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
+@RestController
+@RequestMapping(value = "/procer")
+public class PessoaController {
+
+    @Autowired
+    private PessoaRepository pessoaRepository;
+	
+    @RequestMapping(value = "/pessoa", method = RequestMethod.GET)
+    public Flux<Pessoa> Get() {
+        return pessoaRepository.findAll();
+    }
+    
+    @RequestMapping(value = "/pessoa", method =  RequestMethod.POST)
+    public Mono<Pessoa> Post(@RequestBody Pessoa pessoa){
+        return pessoaRepository.save(pessoa);
+    }
+    
+	
 	/**
 	 * Implementar endpoints para Cadastrar, Atualizar, Obter dados por Id, Listar Dados paginado e atualizar status de ativo/inativo (true/false);
 	 * @return
