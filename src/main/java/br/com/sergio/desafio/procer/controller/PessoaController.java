@@ -1,10 +1,13 @@
 package br.com.sergio.desafio.procer.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.sergio.desafio.procer.entity.Pessoa;
@@ -18,56 +21,36 @@ public class PessoaController {
 
     @Autowired
     private PessoaFacade pessoaFacade;
+    
+    @RequestMapping(value = "/pessoas", method = RequestMethod.GET)
+    public Flux<Pessoa> getPessoas() {
+    	return pessoaFacade.findAll();
+    }
 	
-    @RequestMapping(value = "/pessoa", method = RequestMethod.GET)
-    public Flux<Pessoa> Get() {
-        return pessoaFacade.findAll();
+    @RequestMapping(value = "/pessoa/{idPessoa}", method =  RequestMethod.GET)
+    public Mono<ResponseEntity<Pessoa>> getPessoaById(@PathVariable Long idPessoa){
+    	return pessoaFacade.findById(idPessoa).map(pessoa -> ResponseEntity.ok(pessoa)).defaultIfEmpty(ResponseEntity.notFound().build());
     }
     
     @RequestMapping(value = "/pessoa", method =  RequestMethod.POST)
-    public Mono<Pessoa> Post(@RequestBody Pessoa pessoa){
-        return pessoaFacade.save(pessoa);
+    @ResponseStatus(HttpStatus.CREATED)
+    public Mono<ResponseEntity<Pessoa>> savePessoa(@RequestBody Pessoa pessoa){
+        return pessoaFacade.save(pessoa).map(pessoaPersistida -> ResponseEntity.ok(pessoaPersistida)).defaultIfEmpty(ResponseEntity.internalServerError().build());
     }
     
-	
-	/**
-	 * Implementar endpoints para Cadastrar, Atualizar, Obter dados por Id, Listar Dados paginado e atualizar status de ativo/inativo (true/false);
-	 * @return
-	 */
-	
-	@GetMapping(value = "/hello")
-	public String getHelloWorld() {
-		return "H E L L O   W O R L D !!!  Ihuuuuuuu!!!  Tô no ar!";
-	}
-	
-//	//FAZER O POST
-//	@GetMapping()
-//	public void cadastrar(Pessoa pessoa) {
-//		//"Pessoa cadastrada com sucesso.";
-//	}
-//	
-//	//PUT
-//	@GetMapping()
-//	public void atualizar(Pessoa pessoa) {
-//		//"Informações da Pessoa atualizadas com sucesso.";
-//	}
-//	
-//	//GET
-//	@GetMapping()
-//	public Pessoa obterPessoaPorId(Integer idPessoa) {
-//		//"Informações da Pessoa de id XX foram recuperadas com sucesso.";
-//	}
-//	
-//	//GET
-//	@GetMapping("/listar-dados")
-//	public Pessoa listar(Integer idPessoa) {
-//		//"Informações da Pessoa de id XX foram recuperadas com sucesso.";
-//	}
-//	
-//	//PATCH
-//	@GetMapping()
-//	public void atualizarStatus(Pessoa pessoa) {
-//		//"Informações do status do cadastro da Pessoa atualizadas com sucesso.";
-//	}
-
+    @RequestMapping(value = "/pessoa", method =  RequestMethod.PUT)
+    public Mono<ResponseEntity<Pessoa>> updatePessoa(@RequestBody Pessoa pessoa){
+    	return pessoaFacade.update(pessoa);
+    }
+    
+    @RequestMapping(value = "/pessoa/{idPessoa}/{status}", method =  RequestMethod.PATCH)
+    public Mono<ResponseEntity<Pessoa>> patchStatus(@PathVariable Long idPessoa, @PathVariable Boolean status){
+    	return pessoaFacade.updateStatus(idPessoa, status);
+    }
+    
+    @RequestMapping(value = "/pessoa/{idPessoa}", method =  RequestMethod.DELETE)
+    public Mono<ResponseEntity<Void>> deletePessoa(@PathVariable Long idPessoa){
+    	return pessoaFacade.deletePessoaById(idPessoa);
+    }
+    
 }

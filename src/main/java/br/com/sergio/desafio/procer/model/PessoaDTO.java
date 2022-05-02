@@ -1,13 +1,22 @@
 package br.com.sergio.desafio.procer.model;
 
-public class PessoaDTO {
+public class PessoaDTO{
 
+	private Long id;
 	private String nome;
 	private String sobrenome;
 	private String email;
 	private String cpf;
 	private Boolean ativo;
-	
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public String getNome() {
 		return nome;
 	}
@@ -47,5 +56,5 @@ public class PessoaDTO {
 	public void setAtivo(Boolean ativo) {
 		this.ativo = ativo;
 	}
-
+	
 }

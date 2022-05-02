@@ -1,8 +1,8 @@
 package br.com.sergio.desafio.procer.facade;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import br.com.sergio.desafio.procer.entity.Pessoa;
 import br.com.sergio.desafio.procer.service.PessoaService;
@@ -19,7 +19,23 @@ public class PessoaFacade {
         return pessoaService.findAll();
     }
     
-    public Mono<Pessoa> save(@RequestBody Pessoa pessoa){
+    public Mono<Pessoa> findById(Long id) {
+    	return pessoaService.findById(id);
+    }
+    
+    public Mono<Pessoa> save(Pessoa pessoa){
     	return pessoaService.save(pessoa);
     }
+
+	public Mono<ResponseEntity<Pessoa>> update(Pessoa pessoa) {
+		return pessoaService.update(pessoa);
+	}
+
+	public Mono<ResponseEntity<Pessoa>> updateStatus(Long idPessoa, Boolean status) {
+		return pessoaService.updateStatusById(idPessoa, status);
+	}
+
+	public Mono<ResponseEntity<Void>> deletePessoaById(Long idPessoa) {
+		return pessoaService.deleteById(idPessoa);
+	}
 }
