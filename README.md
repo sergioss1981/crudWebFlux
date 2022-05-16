@@ -1,11 +1,11 @@
-# Desafio CRUD WebFlux - PROCER
-Desenvolver uma aplicaÁ„o Java 11 com Webflux. A aplicaÁ„o dever· realizar o CRUD do objeto Pessoa.
+# Desafio CRUD WebFlux
+Desenvolver uma aplica√ß√£o Java 11 com Webflux. A aplica√ß√£o dever√° realizar o CRUD do objeto Pessoa.
 
 
-## ExecuÁ„o do projeto
+## Execu√ß√£o do projeto
 Rodar o comando "docker-compose up -d" no caminho do projeto.
 
-Dessa forma, o Dockerfile ser· utilizado como base para gerar a imagem do aplicativo, alÈm de executar o postgres e um script com carga inicial para facilitar os testes.
+Dessa forma, o Dockerfile ser√° utilizado como base para gerar a imagem do aplicativo, al√©m de executar o postgres e um script com carga inicial para facilitar os testes.
 
 ## Testes
-Foi disponibilizada a collection desafio_procer. Nela conter· o body nos serviÁos que necessitam dele. A collection foi gerada no postman e est· no diretÛrio raiz do projeto.
+Foi disponibilizada a collection desafio_procer. Nela conter√° o body nos servi√ßos que necessitam dele. A collection foi gerada no postman e est√° no diret√≥rio raiz do projeto.
